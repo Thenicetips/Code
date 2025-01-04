@@ -145,7 +145,7 @@
             text-decoration: underline;
         }
         .profile-pic {
-    position: relative;
+    position: absolute;
     width: 60px;
     height: 60px;
 		flex-shrink: 0
@@ -195,7 +195,7 @@
             <div class="profile-pic top-left">
           ${
                     user.photo_url
-                        ? `<p><img src="${user.photo_url}" alt="Profile Picture"></p>`
+                        ? `<img src="${user.photo_url}" alt="Profile Picture">`
                         : `<p>No profile picture available.</p>`
                 }
     </div>
