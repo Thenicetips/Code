@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .user-details {
+            text-align: left;
+            margin-top: 20px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .user-details img {
+            border-radius: 50%;
+            display: block;
+            margin: 10px auto;
+            max-width: 100px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Telegram WebApp</h1>
+        <div id="user-details" class="user-details">
+            Loading user details...
+        </div>
+    </div>
+
+    <script>
+        // Telegram WebApp API Initialization
+        window.onload = () => {
+            const tg = window.Telegram.WebApp;
+
+            // Check if Telegram WebApp API is initialized
+            if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+                document.getElementById('user-details').innerHTML = `
+                    <p class="error">Error: Unable to fetch Telegram user details.</p>
+                `;
+                return;
+            }
+
+            // Retrieve user data
+            const user = tg.initDataUnsafe.user;
+
+            // Display user data in the UI
+            document.getElementById('user-details').innerHTML = `
+                <p><strong>First Name:</strong> ${user.first_name}</p>
+                <p><strong>Last Name:</strong> ${user.last_name || 'N/A'}</p>
+                <p><strong>Username:</strong> ${user.username || 'N/A'}</p>
+                <p><strong>User ID:</strong> ${user.id}</p>
+                ${
+                    user.photo_url
+                        ? `<p><img src="${user.photo_url}" alt="Profile Picture"></p>`
+                        : `<p>No profile picture available.</p>`
+                }
+            `;
+        };
+    </script>
+</body>
+  </html>
+  
