@@ -175,7 +175,7 @@
 <body> 
 <script>
         // Telegram WebApp API Initialization
-        let user.id = null;
+        
         window.onload = () => {
             const tg = window.Telegram.WebApp;
 
@@ -189,7 +189,7 @@
 
             // Retrieve user data
             const user = tg.initDataUnsafe.user;
-
+const userid = user.id;
             // Display user data in the UI
             document.getElementById('user-details').innerHTML += `
             <div class="profile-pic top-left">
@@ -216,9 +216,9 @@
 <h2 id="error"> </h2>
     <!-- Buttons for payment plans -->
     <div id="plan-buttons">
-        <button class="button" onclick="selectPlan(20, 12 , user)">₹20 - 12 Days</button>
-        <button class="button" onclick="selectPlan(30, 21 , user)">₹30 - 21 Days</button>
-        <button class="button" onclick="selectPlan(45, 35 , user)">₹45 - 35 Days</button>
+        <button class="button" onclick="selectPlan(20, 12 )">₹20 - 12 Days</button>
+        <button class="button" onclick="selectPlan(30, 21 )">₹30 - 21 Days</button>
+        <button class="button" onclick="selectPlan(45, 35 )">₹45 - 35 Days</button>
     </div>
 
     <!-- Loading Spinner -->
