@@ -172,87 +172,47 @@
 
     </style>
 </head>
-<body> 
-<script>
+	<body>
+    <script>
         // Telegram WebApp API Initialization
-        let userid;
+        let userid; // Declare userid globally
+
         window.onload = () => {
             const tg = window.Telegram.WebApp;
 
             // Check if Telegram WebApp API is initialized
             if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
                 document.body.innerHTML = `
-                    <p class="error">Error: Unable to fetch Telegram user details. open it in telegram</p>
+                    <p class="error">Error: Unable to fetch Telegram user details. Open it in Telegram</p>
                 `;
                 return;
             }
 
             // Retrieve user data
             const user = tg.initDataUnsafe.user;
-const userid = user.id;
+            userid = user.id; // Assign userid here for global use
+
             // Display user data in the UI
-            document.getElementById('user-details').innerHTML += `
-            <div class="profile-pic top-left">
-          ${
-                    user.photo_url
-                        ? `<img src="${user.photo_url}" alt="Profile Picture">`
-                        : `<p>No profile picture available.</p>`
-                }
-    </div>
-    <h3>Welcome <p class="username">${user.first_name} </p> </h3>
+            document.getElementById("user-details").innerHTML += `
+                <div class="profile-pic top-left">
+                    ${
+                        user.photo_url
+                            ? `<img src="${user.photo_url}" alt="Profile Picture">`
+                            : `<p>No profile picture available.</p>`
+                    }
+                </div>
+                <h3>Welcome <p class="username">${user.first_name}</p></h3>
                 <p><strong>User ID:</strong> ${user.id}</p>
-              
             `;
         };
-    </script>
-    <div id="user-details" class="user-details">
-    	
-    	</div>
-	  
-    
-    
-    
-    <h1 id="plan-title">Choose a Payment Plan</h1>
-<h2 id="error"> </h2>
-    <!-- Buttons for payment plans -->
-    <div id="plan-buttons">
-        <button class="button" onclick="selectPlan(20, 12 , userid)">₹20 - 12 Days</button>
-        <button class="button" onclick="selectPlan(30, 21 ,userid )">₹30 - 21 Days</button>
-        <button class="button" onclick="selectPlan(45, 35)">₹45 - 35 Days</button>
-    </div>
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="hidden">
-        <div class="spinner"></div>
-        <p>Loading QR Code...</p>
-    </div>
-
-    <!-- The payment details section that will appear after selecting a plan -->
-    <div id="payment-details" class="container hidden">
-        <h2>Your Plan: ₹<span id="plan-amount"></span> - <span id="plan-validity"></span> Days</h2>
-        <p>Please pay into this QR code and submit your payment UTR ID in the textbox below, then press the submit button.</p>
-        <img id="qrcode" class="hidden" src="" alt="QR Code" />
-        <br>
-        <input type="text" id="utr-id" placeholder="Enter UTR ID" class="hidden" />
-        <button id="submit-utr" class="button hidden" onclick="submitUTR()">Submit UTR ID</button>
-        <br><br>
-        <button class="back-button" onclick="goBack()">Back</button>
-        <div id="status-message" class="status-message"></div>
-    </div>
-
-    <footer>
-        <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
-    </footer>
-
-    <script>
+        // Select a Payment Plan
         let selectedAmount = 0;
         let selectedValidity = 0;
 
-        function selectPlan(amount, validity ) {
+        function selectPlan(amount, validity) {
             selectedAmount = amount;
             selectedValidity = validity;
-		
-            
 
             // Hide the plan selection buttons
             document.getElementById("plan-buttons").classList.add("hidden");
@@ -267,20 +227,15 @@ const userid = user.id;
 
             // Show loading spinner while QR code is being generated
             document.getElementById("loading-spinner").classList.remove("hidden");
-console.log(selectedAmount)
-            // Generate the QR Code URL based on the amount and validity
-            const qrCodeUrl = `http://100.42.189.14:5000/generate-qrcode?amount=${selectedAmount}&user_id${userid}=${selectuserid}`;
 
-            // Set the QR Code image source to the generated URL
+            // Generate the QR Code URL
+            const qrCodeUrl = `http://100.42.189.14:5000/generate-qrcode?amount=${selectedAmount}&user_id=${userid}`;
             const qrImage = document.getElementById("qrcode");
             qrImage.src = qrCodeUrl;
 
             // When the QR code has loaded, hide the spinner and show the QR code
-            qrImage.onload = function() {
-                // Hide the loading spinner
+            qrImage.onload = () => {
                 document.getElementById("loading-spinner").classList.add("hidden");
-
-                // Show the QR code
                 qrImage.classList.remove("hidden");
 
                 // Show UTR ID input and submit button
@@ -310,8 +265,8 @@ console.log(selectedAmount)
 
             // Send the UTR ID to the backend for verification
             fetch(`/verify-payment?utr_id=${utrId}&amount=${selectedAmount}`)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     const statusMessage = document.getElementById("status-message");
                     if (data.success) {
                         statusMessage.innerHTML = `<span id="success-message">Payment Verified! ✅</span>`;
@@ -319,14 +274,46 @@ console.log(selectedAmount)
                         statusMessage.innerHTML = `<span id="failure-message">Payment Verification Failed. ❌</span>`;
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error("Error:", error);
                     alert("Something went wrong!");
                 });
         }
     </script>
-    
-      
-</body>
+
+    <div id="user-details" class="user-details"></div>
+    <h1 id="plan-title">Choose a Payment Plan</h1>
+    <h2 id="error"></h2>
+
+    <!-- Buttons for payment plans -->
+    <div id="plan-buttons">
+        <button class="button" onclick="selectPlan(20, 12)">₹20 - 12 Days</button>
+        <button class="button" onclick="selectPlan(30, 21)">₹30 - 21 Days</button>
+        <button class="button" onclick="selectPlan(45, 35)">₹45 - 35 Days</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="hidden">
+        <div class="spinner"></div>
+        <p>Loading QR Code...</p>
+    </div>
+
+    <!-- Payment Details -->
+    <div id="payment-details" class="container hidden">
+        <h2>Your Plan: ₹<span id="plan-amount"></span> - <span id="plan-validity"></span> Days</h2>
+        <p>Please pay into this QR code and submit your payment UTR ID in the textbox below, then press the submit button.</p>
+        <img id="qrcode" class="hidden" src="" alt="QR Code" />
+        <br />
+        <input type="text" id="utr-id" placeholder="Enter UTR ID" class="hidden" />
+        <button id="submit-utr" class="button hidden" onclick="submitUTR()">Submit UTR ID</button>
+        <br /><br />
+        <button class="back-button" onclick="goBack()">Back</button>
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <footer>
+        <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
+    </footer>
+	</body>
 </html>
 
