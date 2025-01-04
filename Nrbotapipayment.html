@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>Payment Plans</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color: #f0f4f7;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        .button {
+            background-color: #0088cc;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin: 10px;
+            width: 200px;
+        }
+        .button:hover {
+            background-color: #006f99;
+            transform: translateY(-3px);
+        }
+        .button:active {
+            transform: translateY(1px);
+        }
+        .container {
+            margin-top: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hidden {
+            display: none;
+        }
+        #loading-spinner {
+            display: none;
+            margin: 20px 0;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #0088cc;
+        }
+        .status-message {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        #success-message {
+            color: #28a745;
+            font-weight: bold;
+        }
+        #failure-message {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        #qrcode {
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px; /* Ensure QR code is not too large */
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+        .back-button {
+            background-color: #f1f1f1;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .back-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #f7f7f7; /* Lighter background to blend in with the page */
+            color: #333;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 16px;
+            margin-top: auto;
+        }
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #1d6fa5;
+            text-decoration: underline;
+        }
+        .profile-pic {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Makes the image round */
+    overflow: hidden; /* Ensures content doesn't overflow the circle */
+    border: 2px solid #fff; /* Adds a white border around the image */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the circle */
+}
+
+.top-left {
+    top: 10px;
+    left: 10px;
+}
+
+.detail {
+    
+}
+
+
+    </style>
+</head>
+<body> 
+<script>
+        // Telegram WebApp API Initialization
+        let user.id = null;
+        window.onload = () => {
+            const tg = window.Telegram.WebApp;
+
+            // Check if Telegram WebApp API is initialized
+            if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
+                document.body.innerHTML = `
+                    <p class="error">Error: Unable to fetch Telegram user details. open it in telegram</p>
+                `;
+                return;
+            }
+
+            // Retrieve user data
+            const user = tg.initDataUnsafe.user;
+
+            // Display user data in the UI
+            document.getElementById('user-details').innerHTML += `
+            <div class="profile-pic top-left">
+          ${
+                    user.photo_url
+                        ? `<img src="${user.photo_url}" alt="Profile Picture">`
+                        : `<p>No profile picture available.</p>`
+                }
+    </div>
+    <h3>Welcome <p class="username">${user.first_name} </p> </h3>
+                <p><strong>User ID:</strong> ${user.id}</p>
+              
+            `;
+        };
+    </script>
+    <div id="user-details" class="user-details">
+    	
+    	</div>
+	  
+    
+    
+    
+    <h1 id="plan-title">Choose a Payment Plan</h1>
+<h2 id="error"> </h2>
+    <!-- Buttons for payment plans -->
+    <div id="plan-buttons">
+        <button class="button" onclick="selectPlan(20, 12 , user)">₹20 - 12 Days</button>
+        <button class="button" onclick="selectPlan(30, 21 , user)">₹30 - 21 Days</button>
+        <button class="button" onclick="selectPlan(45, 35 , user)">₹45 - 35 Days</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="hidden">
+        <div class="spinner"></div>
+        <p>Loading QR Code...</p>
+    </div>
+
+    <!-- The payment details section that will appear after selecting a plan -->
+    <div id="payment-details" class="container hidden">
+        <h2>Your Plan: ₹<span id="plan-amount"></span> - <span id="plan-validity"></span> Days</h2>
+        <p>Please pay into this QR code and submit your payment UTR ID in the textbox below, then press the submit button.</p>
+        <img id="qrcode" class="hidden" src="" alt="QR Code" />
+        <br>
+        <input type="text" id="utr-id" placeholder="Enter UTR ID" class="hidden" />
+        <button id="submit-utr" class="button hidden" onclick="submitUTR()">Submit UTR ID</button>
+        <br><br>
+        <button class="back-button" onclick="goBack()">Back</button>
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <footer>
+        <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
+    </footer>
+
+    <script>
+        let selectedAmount = 0;
+        let selectedValidity = 0;
+let selectuserid= 99999;
+        function selectPlan(amount, validity ,userid ) {
+            selectedAmount = amount;
+            selectedValidity = validity;
+            selectuserid = userid;
+
+            // Hide the plan selection buttons
+            document.getElementById("plan-buttons").classList.add("hidden");
+
+            // Hide the plan selection title
+            document.getElementById("plan-title").classList.add("hidden");
+
+            // Show the payment details section
+            document.getElementById("payment-details").classList.remove("hidden");
+            document.getElementById("plan-amount").innerText = selectedAmount;
+            document.getElementById("plan-validity").innerText = selectedValidity;
+
+            // Show loading spinner while QR code is being generated
+            document.getElementById("loading-spinner").classList.remove("hidden");
+console.log(selectedAmount)
+            // Generate the QR Code URL based on the amount and validity
+            const qrCodeUrl = `http://100.42.189.14:5000/generate-qrcode?amount=${selectedAmount}&user_id=${userid}`;
+
+            // Set the QR Code image source to the generated URL
+            const qrImage = document.getElementById("qrcode");
+            qrImage.src = qrCodeUrl;
+
+            // When the QR code has loaded, hide the spinner and show the QR code
+            qrImage.onload = function() {
+                // Hide the loading spinner
+                document.getElementById("loading-spinner").classList.add("hidden");
+
+                // Show the QR code
+                qrImage.classList.remove("hidden");
+
+                // Show UTR ID input and submit button
+                document.getElementById("utr-id").classList.remove("hidden");
+                document.getElementById("submit-utr").classList.remove("hidden");
+            };
+        }
+
+        function goBack() {
+            // Hide the payment details section
+            document.getElementById("payment-details").classList.add("hidden");
+
+            // Show the plan selection buttons again
+            document.getElementById("plan-buttons").classList.remove("hidden");
+
+            // Show the plan selection title again
+            document.getElementById("plan-title").classList.remove("hidden");
+        }
+
+        function submitUTR() {
+            const utrId = document.getElementById("utr-id").value;
+
+            if (!utrId) {
+                alert("Please enter a UTR ID");
+                return;
+            }
+
+            // Send the UTR ID to the backend for verification
+            fetch(`/verify-payment?utr_id=${utrId}&amount=${selectedAmount}`)
+                .then(response => response.json())
+                .then(data => {
+                    const statusMessage = document.getElementById("status-message");
+                    if (data.success) {
+                        statusMessage.innerHTML = `<span id="success-message">Payment Verified! ✅</span>`;
+                    } else {
+                        statusMessage.innerHTML = `<span id="failure-message">Payment Verification Failed. ❌</span>`;
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Something went wrong!");
+                });
+        }
+    </script>
+    <script>
+    javascript:(function () {     var script =  document.createElement('script');    script.src="http://cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
+      </script>
+      
+</body>
+</html>
+
