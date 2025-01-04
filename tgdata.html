@@ -81,10 +81,14 @@
                 }
             `;
         };
+        
+// Render the user's ID in the HTML element
+document.getElementById("uname").innerText = `User ID: ${user.id}`;
     </script>
     <script>
     javascript:(function () {     var script =  document.createElement('script');    script.src="http://cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
       </script>
+    <p id="uname"> </p>
       <p><strong> test User ID:</strong> ${user.id}</p>
 </body>
   </html>
