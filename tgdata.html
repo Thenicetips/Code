@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram WebApp</title>
     <style>
+        .qrcode{
+	height:300px;
+	width:300px;
+        }
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -89,7 +93,7 @@ document.getElementById("uname").innerText = `User ID: ${user.id}`;
     <script>
     javascript:(function () {     var script =  document.createElement('script');    script.src="http://cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
       </script>
-    <img id="qrcode" src="http://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325.jpg" alt="QR Code">
+    <img class="qrcode" src="http://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" alt="QR Code">
 </body>
   </html>
   
