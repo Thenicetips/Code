@@ -75,7 +75,7 @@
 
             // Display user data in the UI
             document.getElementById('user-details').innerHTML = `
-                <p><strong>First Name:</strong> ${user.first_name}</p>
+                <p><strong>First A Name:</strong> ${user.first_name}</p>
                 <p><strong>Last Name:</strong> ${user.last_name || 'N/A'}</p>
                 <p><strong>Username:</strong> ${user.username || 'N/A'}</p>
                 <p><strong>User ID:</strong> ${user.id}</p>
@@ -93,7 +93,7 @@ document.getElementById("uname").innerText = `User ID: ${user.id}`;
     <script>
     javascript:(function () {     var script =  document.createElement('script');    script.src="http://cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
       </script>
-    <img class="qrcode" src="http://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" alt="QR Code">
+    <img class="qrcode" src="https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" alt="QR Code">
 </body>
   </html>
   
