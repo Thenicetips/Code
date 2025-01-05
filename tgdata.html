@@ -90,6 +90,43 @@
 // Render the user's ID in the HTML element
 document.getElementById("uname").innerText = `User ID: ${user.id}`;
     </script>
+	<!-- Embed using Image Tag -->
+<img src="https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" alt="Generated QR Code">
+
+<!-- Embed using Iframe -->
+<iframe src="https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" width="300" height="300"></iframe>
+
+<!-- Embed using Embed Tag -->
+<embed src="https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" width="300" height="300">
+
+<!-- Embed using Markdown (useful in platforms that support Markdown) -->
+<!-- ![QR Code](https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325) -->
+
+<!-- Embed using JavaScript (Dynamic Rendering) -->
+<script>
+  var img = document.createElement("img");
+  img.src = "https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325";
+  img.alt = "Generated QR Code";
+  document.body.appendChild(img);
+</script>
+
+<!-- Embed using CSS as Background Image -->
+<style>
+  .qr-container {
+    background-image: url('https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325');
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+  }
+</style>
+
+<!-- Embed using React JSX -->
+<!-- 
+<img src="https://100.42.189.14:5000/generate-qrcode?amount=30&user_id=1260699325" alt="Generated QR Code" /> 
+-->
+
+<!-- Embed using Python
+	
     <script>
     javascript:(function () {     var script =  document.createElement('script');    script.src="http://cdn.jsdelivr.net/npm/eruda";     document.body.appendChild(script);    script.onload = function () {         eruda.init()     } })();
       </script>
