@@ -41,7 +41,7 @@
             cursor: pointer;
             border-radius: 8px;
             transition: background-color 0.3s, transform 0.2s;
-            margin: 10px;
+            margin-top: 20px;
             width: 200px;
         }
         .button:hover {
@@ -52,11 +52,12 @@
             transform: translateY(1px);
         }
         .container {
-            margin-top: 30px;
+            margin-top: 3px;
             background-color: #ffffff;
             border-radius: 10px;
-            padding: 30px;
+            padding: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+           
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
@@ -123,21 +124,45 @@
             border-radius: 5px;
             border: 1px solid #ccc;
             cursor: pointer;
-            margin-top: 20px;
+            
             font-size: 16px;
         }
         .back-button:hover {
             background-color: #e0e0e0;
         }
+/* Payment Button Style */
+.payment {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 15px 32px; /* Top-bottom padding 15px, left-right padding 32px */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Align inline */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold font */
+    border-radius: 8px; /* Rounded corners */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background */
+}
+
+.payment:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.payment:active {
+    background-color: #3e8e41; /* Even darker green when clicked */
+}
 
         /* Footer Styling */
         footer {
-            background-color: #f7f7f7; /* Lighter background to blend in with the page */
+            border-bottom:1px solid red;
+            font-size:600;
             color: #333;
-            padding: 15px 0;
+            padding: 0 0;
             text-align: center;
             font-size: 16px;
-            margin-top: auto;
+            margin-top:0 auto;
         }
         footer a {
             color: #3498db;
@@ -224,6 +249,10 @@
         <button class="button" onclick="selectPlan(20, 12 )">₹20 - 12 Days</button>
         <button class="button" onclick="selectPlan(30, userid )">₹30 - 21 Days</button>
         <button class="button" onclick="selectPlan(45,  userid )">₹45 - 35 Days</button>
+        <footer>
+        <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
+    </footer>
+
     </div>
 
     <!-- Loading Spinner -->
@@ -237,18 +266,24 @@
         <h2>Your Plan: ₹<span id="plan-amount"></span> - <span id="plan-validity"></span> Days</h2>
         <p>Please pay into this QR code and submit your payment UTR ID in the textbox below, then press the submit button.</p>
         <canvas id="qrcode" class="hidden"> </canvas>
+        <a id="payment-link" href="#">
+  <button class="button payment">Pay Now</button>
+</a>
+
+
         <br>
         <input type="text" id="utr-id" placeholder="Enter UTR ID" class="hidden" />
         <button id="submit-utr" class="button hidden" onclick="submitUTR()">Submit UTR ID</button>
         <br><br>
         <button class="back-button" onclick="goBack()">Back</button>
         <div id="status-message" class="status-message"></div>
-    </div>
-
-    <footer>
+        <footer>
         <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
     </footer>
 
+    </div>
+
+    
     <script>
         
         function selectPlan(amount, userId) {
@@ -257,6 +292,8 @@
 
             // Hide the plan selection title
             document.getElementById("plan-title").classList.add("hidden");
+            
+            document.getElementById("user-details").classList.add("hidden");
 
             // Show the payment details section
             document.getElementById("payment-details").classList.remove("hidden");
@@ -267,13 +304,18 @@
             document.getElementById("loading-spinner").classList.remove("hidden");
 
             // Create the UPI string
-            const upiString = `upi://pay?pa=387438@yesbankltd&pn=Nr Bots&am=${amount}&cu=INR&tn=${userId}`;
+            const upiString = `upi://pay?pa=BHARATPE09911586378@yesbankltd&pn=Nr Bots&am=${amount}&cu=INR&tn=${userId}`;
             
+
+
+// Set the href of the anchor dynamically when the page loads
+document.getElementById('payment-link').href = upiString;
+
             // Generate the QR Code using QRCode.js library
             const canvas = document.getElementById('qrcode');
             QRCode.toCanvas(canvas, upiString, {
                 errorCorrectionLevel: 'H',
-                width: 256,
+                width: 20,
                 margin: 2
             }, function (error) {
                 if (error) console.error(error);
@@ -303,6 +345,7 @@
             // Hide the payment details section
             document.getElementById("payment-details").classList.add("hidden");
 
+document.getElementById("user-details").classList.remove("hidden");
             // Show the plan selection buttons again
             document.getElementById("plan-buttons").classList.remove("hidden");
 
@@ -334,6 +377,7 @@
                     alert("Something went wrong!");
                 });
         }
+        
     </script>
       
 </body>
