@@ -130,29 +130,6 @@
         .back-button:hover {
             background-color: #e0e0e0;
         }
-/* Payment Button Style */
-.payment {
-    background-color: #4CAF50; /* Green background */
-    color: white; /* White text */
-    padding: 15px 32px; /* Top-bottom padding 15px, left-right padding 32px */
-    text-align: center; /* Center text */
-    text-decoration: none; /* Remove underline */
-    display: inline-block; /* Align inline */
-    font-size: 16px; /* Font size */
-    font-weight: bold; /* Bold font */
-    border-radius: 8px; /* Rounded corners */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for background */
-}
-
-.payment:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
-
-.payment:active {
-    background-color: #3e8e41; /* Even darker green when clicked */
-}
 
         /* Footer Styling */
         footer {
@@ -211,7 +188,7 @@
 
             // Check if Telegram WebApp API is initialized
             if (!tg.initDataUnsafe || !tg.initDataUnsafe.user) {
-                document.bo6dy.innerHTML = `
+                document.body.innerHTML = `
                     <p class="error">Error: Unable to fetch Telegram user details. open it in telegram</p>
                 `;
                 return;
@@ -246,9 +223,9 @@
 <h2 id="error"> </h2>
     <!-- Buttons for payment plans -->
     <div id="plan-buttons">
-        <button class="button" onclick="selectPlan(20, 12 )">₹20 - 12 Days</button>
-        <button class="button" onclick="selectPlan(30, userid )">₹30 - 21 Days</button>
-        <button class="button" onclick="selectPlan(45,  userid )">₹45 - 35 Days</button>
+        <button class="button" onclick="selectPlan(20, userid , 12)">₹20 - 12 Days</button>
+        <button class="button" onclick="selectPlan(30, userid , 21)">₹30 - 21 Days</button>
+        <button class="button" onclick="selectPlan(45,  userid , 35 )">₹45 - 35 Days</button>
         <footer>
         <p>Powered by <a href="https://t.me/nrbots2" target="_blank">Nrbots</a></p>
     </footer>
@@ -266,9 +243,7 @@
         <h2>Your Plan: ₹<span id="plan-amount"></span> - <span id="plan-validity"></span> Days</h2>
         <p>Please pay into this QR code and submit your payment UTR ID in the textbox below, then press the submit button.</p>
         <canvas id="qrcode" class="hidden"> </canvas>
-        <a id="payment-link" href="#">
-  <button class="button payment">Pay Now</button>
-</a>
+        
 
 
         <br>
@@ -286,7 +261,7 @@
     
     <script>
         
-        function selectPlan(amount, userId) {
+        function selectPlan(amount, userId , days) {
             // Hide the plan selection buttons
             document.getElementById("plan-buttons").classList.add("hidden");
 
@@ -298,7 +273,7 @@
             // Show the payment details section
             document.getElementById("payment-details").classList.remove("hidden");
             document.getElementById("plan-amount").innerText = amount;
-            document.getElementById("plan-validity").innerText = "1 Month"; // Modify as per your plan
+            document.getElementById("plan-validity").innerText = days; // Modify as per your plan
 
             // Show loading spinner while QR code is being generated
             document.getElementById("loading-spinner").classList.remove("hidden");
@@ -309,7 +284,7 @@
 
 
 // Set the href of the anchor dynamically when the page loads
-document.getElementById('payment-link').href = upiString;
+
 
             // Generate the QR Code using QRCode.js library
             const canvas = document.getElementById('qrcode');
