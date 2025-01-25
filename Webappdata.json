@@ -1,5 +1,5 @@
 {
-  "inform": [
+  "inform": 
     {
       "message": "This is a single message.",
       "key": "abc123xyz",
@@ -10,7 +10,7 @@
       "welcome_message": "abc123xyz"
       
     }
-  ],
+  ,
   "batches": [
     {
       "api": "crazygktrickapi.akamai.net.in/",
