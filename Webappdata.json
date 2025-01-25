@@ -1,0 +1,34 @@
+{
+  "inform": [
+    {
+      "message": "This is a single message.",
+      "key": "abc123xyz",
+      "auth_all": "abc123xyz",
+      "auth_user": "true",
+      "auth_users": "false",
+      "error_message": "abc123xyz",
+      "welcome_message": "abc123xyz"
+      
+    }
+  ],
+  "batches": [
+    {
+      "api": "crazygktrickapi.akamai.net.in/",
+      "user_id": "106374",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEwNTQ5NjciLCJlbWFpbCI6InRoZW5pY2V0aXBzQGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTczNzM1NDM1MiwidGVuYW50VHlwZSI6InVzZXIiLCJ0ZW5hbnROYW1lIjoiIiwidGVuYW50SWQiOiIifQ.f1Cwq6VH9BsyleTBOYDXdysFlE938Bv7IlKUeSoR7UY",
+      "name": "Crazy"
+    },
+    {
+      "api": "mathsdpsirofficialapi.akamai.net.in/",
+      "user_id": "21319",
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIxMzE5IiwiZW1haWwiOiJ0aGVuaWNldGlwc0BnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE3MzY1OTg5NDIsInRlbmFudFR5cGUiOiJ1c2VyIiwidGVuYW50TmFtZSI6IiIsInRlbmFudElkIjoiIn0.UDm7IHdwUU5zvadbzEw7QJz9AQM8R0C3Ru8bgA0ulLo",
+      "name": "Maths by Dp Sir"
+    },
+    {
+      "api": "https://example.com/api/v3",
+      "user_id": "11223",
+      "token": "ghi789rst",
+      "name": "abc123xyz"
+    }
+  ]
+}
