@@ -5,7 +5,7 @@
       "key": "abc123xyz",
       "auth_all": true,
       "auth_user": [1260699325,7401411111,12606993273,737437, 827477],
-      "auth_users": "false",
+      "auth_users": false,
       "error_message": "abc123xyz",
       "welcome_message": "abc123xyz"
       
