@@ -13,15 +13,15 @@
   ,
   "batches": [
     {
-      "api": "crazygktrickapi.akamai.net.in/",
-      "user_id": "106374",
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEwNTQ5NjciLCJlbWFpbCI6InRoZW5pY2V0aXBzQGdtYWlsLmNvbSIsInRpbWVzdGFtcCI6MTczNzM1NDM1MiwidGVuYW50VHlwZSI6InVzZXIiLCJ0ZW5hbnROYW1lIjoiIiwidGVuYW50SWQiOiIifQ.f1Cwq6VH9BsyleTBOYDXdysFlE938Bv7IlKUeSoR7UY",
+      "api": "kaai.net.in/",
+      "user_id": "17",
+      "token": "eycCI6Y",
       "name": "Crazy"
     },
     {
-      "api": "mathsdpsirofficialapi.akamai.net.in/",
-      "user_id": "21319",
-      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjIxMzE5IiwiZW1haWwiOiJ0aGVuaWNldGlwc0BnbWFpbC5jb20iLCJ0aW1lc3RhbXAiOjE3MzY1OTg5NDIsInRlbmFudFR5cGUiOiJ1c2VyIiwidGVuYW50TmFtZSI6IiIsInRlbmFudElkIjoiIn0.UDm7IHdwUU5zvadbzEw7QJz9AQM8R0C3Ru8bgA0ulLo",
+      "api": "matet.in/",
+      "user_id": "3",
+      "token": "eyA0ulLo",
       "name": "Maths by Dp Sir"
     },
     {
